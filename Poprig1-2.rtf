@@ -1,0 +1,465 @@
+{\rtf1\ansi\ansicpg1251\deff0\nouicompat\deflang1049{\fonttbl{\f0\fnil Cascadia Mono;}{\f1\fnil\fcharset204 Cascadia Mono;}{\f2\fnil\fcharset0 Calibri;}{\f3\fnil\fcharset0 Cascadia Mono;}}
+{\colortbl ;\red0\green0\blue0;\red255\green0\blue0;\red0\green0\blue255;\red43\green145\blue175;\red163\green21\blue21;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sl240\slmult1\cf1\f0\fs24\lang9  \cf2 DbConnection\cf1\fs19\par
+ \cf3 internal\cf1  \cf3 class\cf1  \cf4 DbConnection\cf1\par
+    \{\par
+        \cf3 private\cf1  \cf3 static\cf1  Model.poprigEntities s_firstDBEntities;\par
+\par
+        \cf3 public\cf1  \cf3 static\cf1  Model.poprigEntities GetContext()\par
+        \{\par
+            \cf3 if\cf1  (s_firstDBEntities == \cf3 null\cf1 )\par
+            \{\par
+                s_firstDBEntities = \cf3 new\cf1  Model.poprigEntities();\par
+            \}\par
+            \cf3 return\cf1  s_firstDBEntities;\par
+        \}\par
+    \}\par
+\par
+\cf2\f1\fs24\lang1049\'cf\'ee\'ef\'f0\'fb\'e6\'e5\'ed\'ee\'ea \'e0\'e3\'e5\'ed\'f2\'fb\par
+\f2\fs22\lang1033 XAML     MainWindow\par
+\par
+\cf1\f0\fs19  \cf2  \cf0 Title="MainWindow" Height="450" Width="1000">\par
+    <Grid>\par
+\par
+        <DataGrid  Name="agentGrid" Margin="10,62,10,62" Background="White" Foreground="#DD000000"\par
+                       AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" >\par
+\par
+            <DataGrid.Columns>\par
+\par
+                <DataGridTextColumn x:Name="ATID"\par
+                                   Binding="\{Binding AgentType.Title\}"\par
+                                    Header="\f1\lang1049\'c0\'e1\'e1\'f0\'e5\'e2\'e8\'e0\'f2\'f3\'f0\'e0"\par
+                                    IsReadOnly="True"\par
+                                    Width="50"/>\par
+                <DataGridTextColumn x:Name="Title"\par
+                                    Binding="\{Binding Title\}"\par
+                                    Header="\'c8\'ed\'f4\'ee\'f0\'ec\'e0\'f6\'e8\'ff"\par
+                                    IsReadOnly="True" \par
+                                    Width="180"/>\par
+                <DataGridTextColumn x:Name="Email"\par
+                                   Binding="\{Binding Email\}"\par
+                                    Header="\'c8\'ec\'e0\'e9\'eb"\par
+                                    IsReadOnly="True"\par
+                                    Width="140"/>\par
+                <DataGridTextColumn x:Name="Phone"\par
+                                    Binding="\{Binding Phone\}"\par
+                                    Header="\'d2\'e5\'eb\'e5\'f4\'ee\'ed"\par
+                                    IsReadOnly="True"\par
+                                    Width="140"/>\par
+                <DataGridTextColumn x:Name="Address"\par
+                                    Binding="\{Binding Address\}"\par
+                                    Header="\'c0\'e4\'f0\'e5\'f1\'f1"\par
+                                    IsReadOnly="True" \par
+                                    Width="240"/>\par
+                <DataGridTextColumn x:Name="Priority"\par
+                                    Binding="\{Binding Priority\}"\par
+                                    Header="\'cf\'f0\'e8\'ee\'f0\'e5\'f2\'e5\'f2"\par
+                                    IsReadOnly="True" \par
+                                    Width="50"/>\par
+\par
+                <DataGridTextColumn x:Name="DirectorName"\par
+                                    Binding="\{Binding DirectorName\}"\par
+                                    Header="\'c8\'ec\'ff \'e4\'e8\'f0\'e5\'ea\'f2\'ee\'f0\'e0"\par
+                                    IsReadOnly="True" \par
+                                    Width="170"/>\par
+\par
+                <DataGridTextColumn x:Name="INN"\par
+                                    Binding="\{Binding INN\}"\par
+                                    Header="INN"\par
+                                    IsReadOnly="True" \par
+                                    Width="110"/>\par
+\par
+                <DataGridTextColumn x:Name="KPP"\par
+                                    Binding="\{Binding KPP\}"\par
+                                    Header="KPP"\par
+                                    IsReadOnly="True" \par
+                                    Width="110"/>\par
+\par
+            </DataGrid.Columns>\par
+\par
+        </DataGrid>\par
+\par
+        <ComboBox HorizontalAlignment="Left" Margin="24,23,0,0" VerticalAlignment="Top" Width="232" SelectionChanged="ComboBox_SelectionChanged">\par
+            <ComboBoxItem Tag="0">\par
+                <TextBlock  Text="\'c1\'e5\'e7 \'f1\'ee\'f0\'f2\'e8\'f0\'ee\'e2\'ea\'e8" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem Tag="1">\par
+                <TextBlock Text="\'cf\'ee \'e2\'ee\'e7\'f0\'e0\'f1\'f2\'e0\'ed\'e8\'fe \'ed\'e0\'e7\'e2\'e0\'ed\'e8\'ff" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem  Tag="2">\par
+                <TextBlock Text="\'cf\'ee \'f3\'e1\'fb\'e2\'e0\'ed\'e8\'fe \'ed\'e0\'e7\'e2\'e0\'ed\'e8\'ff"></TextBlock>\par
+            </ComboBoxItem>\par
+        </ComboBox>\par
+        <Button Content="\'c4\'ee\'e1\'e0\'e2\'e8\'f2\'fc" HorizontalAlignment="Left" Margin="39,372,0,0" Width="132" Height="28" VerticalAlignment="Top" Click="Button_Click"/>\par
+        <Button Content="\'d3\'e4\'e0\'eb\'e8\'f2\'fc" Margin="825,372,43,0" Height="28" VerticalAlignment="Top" Click="Button_Click_1"/>\par
+        \par
+    </Grid>\par
+</Window>\par
+\par
+\cf2\fs22\'ca\'ce\'c4 \f3\lang1033 MainWindow\par
+\par
+\cf3\f0\fs19 public\cf1  \cf3 partial\cf1  \cf3 class\cf1  \cf4 MainWindow\cf1  : Window\par
+    \{\par
+        \cf3 public\cf1  \cf4 MainWindow\cf1 ()\par
+        \{\par
+            InitializeComponent();\par
+            agentGrid.ItemsSource = Controller.DbConnection.GetContext().Agent.ToList();\par
+        \}\par
+\par
+      \par
+\par
+        \cf3 private\cf1  \cf3 void\cf1  ComboBox_SelectionChanged(\cf3 object\cf1  sender, SelectionChangedEventArgs e)\par
+        \{\par
+            ComboBox comboBox = (ComboBox)sender;\par
+            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;\par
+            \cf3 int\cf1  order = Convert.ToInt32(selectedItem.Tag.ToString());\par
+            \cf3 switch\cf1 (order)\par
+            \{\par
+                \cf3 case\cf1  0:\par
+                    agentGrid.ItemsSource = Controller.DbConnection.GetContext().Agent.ToList();\par
+                    \cf3 break\cf1 ;\par
+                \cf3 case\cf1  1:\par
+                    agentGrid.ItemsSource = Controller.DbConnection.GetContext().Agent.OrderByDescending(Agent => Agent.Title).ToList();\par
+                    \cf3 break\cf1 ;\par
+                \cf3 case\cf1  2:\par
+                    agentGrid.ItemsSource = Controller.DbConnection.GetContext().Agent.OrderBy(Agent => Agent.Title).ToList();\par
+                    \cf3 break\cf1 ;\par
+                \cf3 default\cf1 :\par
+                    Console.WriteLine(\cf5 "\f1\lang1049\'ce\'f8\'e8\'e1\'ea\'e0"\cf1 );\par
+                    \cf3 break\cf1 ;\par
+\par
+            \}\par
+        \}\par
+\par
+        \cf3 private\cf1  \cf3 void\cf1  Button_Click(\cf3 object\cf1  sender, RoutedEventArgs e)\par
+        \{\par
+            Dobawlenie taskWindow = \cf3 new\cf1  Dobawlenie();\par
+            taskWindow.Show();\par
+            \cf3 this\cf1 .Close();\par
+        \}\par
+\par
+\par
+        Model.poprigEntities objEntities = \cf3 new\cf1  Model.poprigEntities();\par
+        \cf3 private\cf1  \cf3 void\cf1  Button_Click_1(\cf3 object\cf1  sender, RoutedEventArgs e)\par
+        \{\par
+            \cf3 long\cf1  AgentType = (agentGrid.SelectedItem \cf3 as\cf1  Agent).ID;\par
+            Agent Agent = (\cf3 from\cf1  r \cf3 in\cf1  objEntities.Agent \cf3 where\cf1  r.ID == AgentType \cf3 select\cf1  r).SingleOrDefault();\par
+            objEntities.Agent.Remove(Agent);\par
+            objEntities.SaveChanges();\par
+            agentGrid.ItemsSource = objEntities.Agent.ToList();\par
+        \}\par
+\par
+     \}\par
+\f3\lang1033\par
+\cf2\f1\fs22\lang1049\'d1\'ee\'e7\'e4\'e0\'f2\'fc 2\'ee\'e5 \'ee\'ea\'ed\'ee \'e4\'eb\'ff \'e4\'ee\'e1\'e0\'e2\'eb\'e5\'ed\'e8\'ff  \par
+\f3\lang1033 xaml \f1\lang1049 2\'ee\'e3\'ee \'ee\'ea\'ed\'e0 \par
+\cf0\par
+\f0\fs19 Title="Dobawlenie" Height="450" Width="800">\par
+    <Grid>\par
+        <Label Content="\f1\'d2\'e8\'ef \'e0\'e3\'e5\'ed\'f2\'e0" HorizontalAlignment="Left" Margin="162,72,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'c8\'ed\'f4\'ee\'f0\'ec\'e0\'f6\'e8\'ff" HorizontalAlignment="Left" Margin="162,133,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="INN" HorizontalAlignment="Left"   Margin="476,191,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'c8\'ec\'ff \'e4\'e8\'f0\'e5\'ea\'f2\'ee\'f0\'e0" HorizontalAlignment="Left" Margin="473,133,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'cf\'f0\'e8\'ee\'f0\'e5\'f2\'e5\'f2" HorizontalAlignment="Left"  Margin="473,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.951,0.565"/>\par
+        <Label Content="\'c0\'e4\'f0\'e5\'f1\'f1" HorizontalAlignment="Left"  Margin="162,321,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'d2\'e5\'eb\'e5\'f4\'ee\'ed" HorizontalAlignment="Left"  Margin="162,256,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'c8\'ec\'e0\'e9\'eb" HorizontalAlignment="Left" Margin="162,191,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="KPP" HorizontalAlignment="Left"  Margin="476,256,0,0" VerticalAlignment="Top"/>\par
+        <TextBox HorizontalAlignment="Left" Margin="27,133,0,0" Name="info" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Left" Margin="27,191,0,0"  Name="email" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Left" Margin="27,256,0,0" Name="Phone" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Left" Margin="27,321,0,0" Name="Adress" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Center" Margin="0,72,0,0" Name="Prior" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Center" Margin="0,133,0,0" Name="NameD" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Center" Margin="0,191,0,0" Name="INN" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Center" Margin="0,256,0,0" Name="KPP" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <Button Content="\'c4\'ee\'e1\'e0\'e2\'e8\'f2\'fc \'e7\'e0\'ef\'e8\'f1\'fc" HorizontalAlignment="Left" Margin="551,374,0,0" VerticalAlignment="Top" Height="34" Width="160" Click="Button_Click"/>\par
+\par
+        <ComboBox HorizontalAlignment="Left" Margin="27,72,0,0" VerticalAlignment="Top" Width="130" Height="26" SelectionChanged="ComboBox_SelectionChanged">\par
+            \par
+            <ComboBoxItem Tag="1">\par
+                <TextBlock  Text="\'cc\'ca\'ca" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem Tag="2">\par
+                <TextBlock Text="\'ce\'c0\'ce" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem  Tag="3">\par
+                <TextBlock Text="\'ce\'ce\'ce"></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem Tag="4">\par
+                <TextBlock  Text="\'c7\'c0\'ce" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem Tag="5">\par
+                <TextBlock Text="\'cc\'d4\'ce" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem  Tag="6">\par
+                <TextBlock Text="\'cf\'c0\'ce"></TextBlock>\par
+            </ComboBoxItem>\par
+        </ComboBox>\par
+\par
+    </Grid>\par
+</Window>\fs22\par
+\cf2\par
+\'ca\'ce\'c4 2\'ee\'e3\'ee \'ee\'ea\'ed\'e0\par
+\par
+\cf1\f0\fs19  \cf3 public\cf1  \cf3 partial\cf1  \cf3 class\cf1  \cf4 Dobawlenie\cf1  : Window\par
+    \{\par
+        \cf3 int\cf1  order;\par
+        \cf3 public\cf1  \cf4 Dobawlenie\cf1 ()\par
+        \{\par
+            InitializeComponent();\par
+            \par
+        \}\par
+\par
+        \cf3 private\cf1  \cf3 void\cf1  Button_Click(\cf3 object\cf1  sender, RoutedEventArgs e)\par
+        \{\par
+            Model.poprigEntities poprig = \cf3 new\cf1  Model.poprigEntities();\par
+            Model.Agent agent = \cf3 new\cf1  Model.Agent();\par
+            agent.AgentTypeID = order;\par
+            agent.Title = info.Text;\par
+            agent.Email = email.Text;\par
+            agent.Phone = Phone.Text;\par
+            agent.Address = Adress.Text;\par
+            agent.Priority = Convert.ToInt32(Prior.Text);\par
+            agent.DirectorName = NameD.Text;\par
+            agent.INN = INN.Text;\par
+            agent.KPP = KPP.Text;\par
+            poprig.Agent.Add(agent);\par
+            poprig.SaveChanges();\par
+\par
+            MessageBox.Show(\cf5 "\f1\'c0\'e3\'e5\'ed\'f2 \'e4\'ee\'e1\'e0\'e2\'eb\'e5\'ed!"\cf1 , \cf5 "\'c8\'ed\'f4\'ee\'f0\'ec\'e0\'f6\'e8\'ff"\cf1 , MessageBoxButton.OK, MessageBoxImage.Information);\par
+            \cf3 new\cf1  MainWindow().Show();\par
+            \cf3 this\cf1 .Close();\par
+        \}\par
+\par
+        \cf3 private\cf1  \cf3 void\cf1  ComboBox_SelectionChanged(\cf3 object\cf1  sender, SelectionChangedEventArgs e)\par
+        \{\par
+            ComboBox comboBox = (ComboBox)sender;\par
+            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;\par
+            order = Convert.ToInt32(selectedItem.Tag.ToString());\par
+        \}\par
+    \}\cf2\fs22\par
+\par
+\par
+\par
+\par
+----------------------------------------------------------------\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\fs24 2 \'cf\'ee\'ef\'f0\'fb\'e6\'e5\'ed\'ee\'ea \'ef\'f0\'ee\'e4\'f3\'ea\'f2\'fb \par
+\f2\fs22\lang1033 XAML     MainWindow\cf0\par
+\par
+\f0\fs19    Title="MainWindow" Height="450" Width="1000">\par
+    <Grid>\par
+        <DataGrid  Name="agentGrid" Margin="10,62,10,62" Background="White" Foreground="#DD000000"\par
+                       AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" >\par
+\par
+            <DataGrid.Columns>\par
+\par
+                <DataGridTextColumn x:Name="ATID"\par
+                                   Binding="\{Binding Title\}"\par
+                                    Header="\f1\lang1049\'cd\'e0\'e7\'e2\'e0\'ed\'e8\'e5"\par
+                                    IsReadOnly="True"\par
+                                    Width="270"/>\par
+                <DataGridTextColumn x:Name="Title"\par
+                                    Binding="\{Binding ProductType.Title\}"\par
+                                    Header="\'d2\'e8\'ef"\par
+                                    IsReadOnly="True" \par
+                                    Width="180"/>\par
+                <DataGridTextColumn x:Name="Email"\par
+                                   Binding="\{Binding ArticleNumber\}"\par
+                                    Header="\'c0\'f0\'ea\'f2\'e8\'ea\'f3\'eb"\par
+                                    IsReadOnly="True"\par
+                                    Width="140"/>\par
+                <DataGridTextColumn x:Name="Phone"\par
+                                    Binding="\{Binding ProductionPersonCount\}"\par
+                                    Header="\'ca\'ee\'eb\'eb\'e8\'f7\'e5\'f1\'f2\'e2\'ee"\par
+                                    IsReadOnly="True"\par
+                                    Width="140"/>\par
+                <DataGridTextColumn x:Name="Address"\par
+                                    Binding="\{Binding ProductionWorkshopNumber\}"\par
+                                    Header="\'ed\'ee\'ec\'e5\'f0"\par
+                                    IsReadOnly="True" \par
+                                    Width="240"/>\par
+                <DataGridTextColumn x:Name="Priority"\par
+                                    Binding="\{Binding MinCostForAgent\}"\par
+                                    Header="\'cc\'e8\'ed.\'f6\'e5\'ed\'e0"\par
+                                    IsReadOnly="True" \par
+                                    Width="50"/>\par
+\par
+            </DataGrid.Columns>\par
+\par
+        </DataGrid>\par
+\par
+        <ComboBox HorizontalAlignment="Left" Margin="24,23,0,0" VerticalAlignment="Top" Width="232" SelectionChanged="ComboBox_SelectionChanged">\par
+            <ComboBoxItem Tag="0">\par
+                <TextBlock  Text="\'c1\'e5\'e7 \'f1\'ee\'f0\'f2\'e8\'f0\'ee\'e2\'ea\'e8" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem Tag="1">\par
+                <TextBlock Text="\'cf\'ee \'e2\'ee\'e7\'f0\'e0\'f1\'f2\'e0\'ed\'e8\'fe \'ed\'e0\'e7\'e2\'e0\'ed\'e8\'ff" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem  Tag="2">\par
+                <TextBlock Text="\'cf\'ee \'f3\'e1\'fb\'e2\'e0\'ed\'e8\'fe \'ed\'e0\'e7\'e2\'e0\'ed\'e8\'ff"></TextBlock>\par
+            </ComboBoxItem>\par
+        </ComboBox>\par
+        <Button Content="\'c4\'ee\'e1\'e0\'e2\'e8\'f2\'fc" HorizontalAlignment="Left" Margin="39,372,0,0" Width="132" Height="28" VerticalAlignment="Top" Click="Button_Click"/>\par
+        <Button Content="\'d3\'e4\'e0\'eb\'e8\'f2\'fc" Margin="825,372,43,0" Height="28" VerticalAlignment="Top" Click="Button_Click_1"/>\par
+        \par
+    </Grid>\par
+</Window>\par
+\par
+\cf2\fs22\'ca\'ce\'c4 \f3\lang1033 MainWindow\par
+\par
+\cf3\f0\fs19 public\cf1  \cf3 partial\cf1  \cf3 class\cf1  \cf4 MainWindow\cf1  : Window\par
+    \{\par
+        \cf3 public\cf1  \cf4 MainWindow\cf1 ()\par
+        \{\par
+            InitializeComponent();\par
+            agentGrid.ItemsSource = Controller.DbConnection.GetContext().Product.ToList();\par
+        \}\par
+\par
+\par
+\par
+        \cf3 private\cf1  \cf3 void\cf1  ComboBox_SelectionChanged(\cf3 object\cf1  sender, SelectionChangedEventArgs e)\par
+        \{\par
+            ComboBox comboBox = (ComboBox)sender;\par
+            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;\par
+            \cf3 int\cf1  order = Convert.ToInt32(selectedItem.Tag.ToString());\par
+            \cf3 switch\cf1  (order)\par
+            \{\par
+                \cf3 case\cf1  0:\par
+                    agentGrid.ItemsSource = Controller.DbConnection.GetContext().Product.ToList();\par
+                    \cf3 break\cf1 ;\par
+                \cf3 case\cf1  1:\par
+                    agentGrid.ItemsSource = Controller.DbConnection.GetContext().Product.OrderByDescending(Product => Product.Title).ToList();\par
+                    \cf3 break\cf1 ;\par
+                \cf3 case\cf1  2:\par
+                    agentGrid.ItemsSource = Controller.DbConnection.GetContext().Product.OrderBy(Product => Product.Title).ToList();\par
+                    \cf3 break\cf1 ;\par
+                \cf3 default\cf1 :\par
+                    Console.WriteLine(\cf5 "\f1\lang1049\'ce\'f8\'e8\'e1\'ea\'e0"\cf1 );\par
+                    \cf3 break\cf1 ;\par
+\par
+            \}\par
+        \}\par
+\par
+        \cf3 private\cf1  \cf3 void\cf1  Button_Click(\cf3 object\cf1  sender, RoutedEventArgs e)\par
+        \{\par
+            Dobawlenie2 taskWindow = \cf3 new\cf1  Dobawlenie2();\par
+            taskWindow.Show();\par
+            \cf3 this\cf1 .Close();\par
+        \}\par
+\par
+\par
+        Model.poprigEntities objEntities = \cf3 new\cf1  Model.poprigEntities();\par
+        \cf3 private\cf1  \cf3 void\cf1  Button_Click_1(\cf3 object\cf1  sender, RoutedEventArgs e)\par
+        \{\par
+            \cf3 long\cf1  AgentType = (agentGrid.SelectedItem \cf3 as\cf1   Product).ID;\par
+            Product Agent = (\cf3 from\cf1  r \cf3 in\cf1  objEntities.Product \cf3 where\cf1  r.ID == AgentType \cf3 select\cf1  r).SingleOrDefault();\par
+            objEntities.Product.Remove(Agent);\par
+            objEntities.SaveChanges();\par
+            agentGrid.ItemsSource = objEntities.Product.ToList();\par
+        \}\par
+\par
+        \}\par
+\f3\lang1033\par
+\cf2\f1\fs22\lang1049\'d1\'ee\'e7\'e4\'e0\'f2\'fc 2\'ee\'e5 \'ee\'ea\'ed\'ee \'e4\'eb\'ff \'e4\'ee\'e1\'e0\'e2\'eb\'e5\'ed\'e8\'ff  \par
+\f3\lang1033 xaml \f1\lang1049 2\'ee\'e3\'ee \'ee\'ea\'ed\'e0 \par
+\cf0\par
+\f0\fs19 Title="Dobawlenie" Height="450" Width="800">\par
+    <Grid>\par
+        <Label Content="\f1\'d2\'e8\'ef \'ef\'f0\'ee\'e4\'f3\'ea\'f6\'e8\'e8" HorizontalAlignment="Left" Margin="167,133,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'cd\'e0\'e7\'e2\'e0\'ed\'e8\'e5" HorizontalAlignment="Left" Margin="167,72,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'cc\'e8\'ed\'e8\'ec\'e0\'eb\'fc\'ed\'e0\'ff \'f6\'e5\'ed\'e0" HorizontalAlignment="Left"  Margin="473,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.951,0.565"/>\par
+        <Label Content="\'cd\'ee\'ec\'e5\'f0" HorizontalAlignment="Left"  Margin="162,321,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'ca\'ee\'eb\'e8\'f7\'e5\'f1\'f2\'e2\'ee" HorizontalAlignment="Left"  Margin="162,256,0,0" VerticalAlignment="Top"/>\par
+        <Label Content="\'c0\'f0\'ea\'f2\'e8\'ea\'f3\'eb" HorizontalAlignment="Left" Margin="162,191,0,0" VerticalAlignment="Top"/>\par
+        <TextBox HorizontalAlignment="Left" Margin="27,72,0,0" Name="nazva" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Left" Margin="27,191,0,0"  Name="arktikl" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Left" Margin="27,256,0,0" Name="kolich" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Left" Margin="27,321,0,0" Name="nomer" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <TextBox HorizontalAlignment="Center" Margin="0,72,0,0" Name="mincen" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Height="26"/>\par
+        <Button Content="\'c4\'ee\'e1\'e0\'e2\'e8\'f2\'fc \'e7\'e0\'ef\'e8\'f1\'fc" HorizontalAlignment="Left" Margin="551,374,0,0" VerticalAlignment="Top" Height="34" Width="160" Click="Button_Click"/>\par
+\par
+        <ComboBox HorizontalAlignment="Left" Margin="27,133,0,0" VerticalAlignment="Top" Width="130" Height="26" SelectionChanged="ComboBox_SelectionChanged">\par
+\par
+            <ComboBoxItem Tag="1">\par
+                <TextBlock  Text="\'c4\'eb\'ff \'ec\'e0\'eb\'e5\'ed\'fc\'ea\'e8\'f5 \'e4\'e5\'f2\'ee\'ea" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem Tag="2">\par
+                <TextBlock Text="\'c4\'eb\'ff \'e1\'ee\'eb\'fc\'f8\'e8\'f5 \'e4\'e5\'f2\'ee\'ea" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem  Tag="3">\par
+                <TextBlock Text="\'c2\'e7\'f0\'ee\'f1\'eb\'fb\'e9"></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem Tag="4">\par
+                <TextBlock  Text="\'d6\'e8\'f4\'f0\'ee\'e2\'ee\'e9" ></TextBlock>\par
+            </ComboBoxItem>\par
+            <ComboBoxItem Tag="5">\par
+                <TextBlock Text="\'d3\'ef\'f0\'f3\'e3\'e8\'e9" ></TextBlock>\par
+            </ComboBoxItem>\par
+            \par
+        </ComboBox>\par
+\par
+    </Grid>\par
+</Window>\par
+\cf2\fs22\par
+\'ca\'ce\'c4 2\'ee\'e3\'ee \'ee\'ea\'ed\'e0\par
+\par
+\cf3\f0\fs19 public\cf1  \cf3 partial\cf1  \cf3 class\cf1  \cf4 Dobawlenie\cf1  : Window\par
+    \{\par
+        \cf3 int\cf1  order;\par
+        \cf3 public\cf1  \cf4 Dobawlenie\cf1 ()\par
+        \{\par
+            InitializeComponent();\par
+\par
+        \}\par
+\par
+        \cf3 private\cf1  \cf3 void\cf1  Button_Click(\cf3 object\cf1  sender, RoutedEventArgs e)\par
+        \{\par
+            Model.poprigEntities poprig = \cf3 new\cf1  Model.poprigEntities();\par
+            Model.Product produkt = \cf3 new\cf1  Model.Product();\par
+            produkt.Title = nazva.Text;\par
+            produkt.ProductTypeID = order;\par
+            produkt.ArticleNumber = arktikl.Text;\par
+            produkt.ProductionPersonCount = Convert.ToInt32(kolich.Text);\par
+            produkt.ProductionWorkshopNumber = Convert.ToInt32(nomer.Text);\par
+            produkt.MinCostForAgent = Convert.ToDecimal(mincen.Text);\par
+           \par
+            poprig.Product.Add(produkt);\par
+            poprig.SaveChanges();\par
+\par
+            MessageBox.Show(\cf5 "\f1\'cf\'f0\'ee\'e4\'f3\'ea\'f2 \'e4\'ee\'e1\'e0\'e2\'eb\'e5\'ed!"\cf1 , \cf5 "\'c8\'ed\'f4\'ee\'f0\'ec\'e0\'f6\'e8\'ff"\cf1 , MessageBoxButton.OK, MessageBoxImage.Information);\par
+            \cf3 new\cf1  MainWindow2().Show();\par
+            \cf3 this\cf1 .Close();\par
+        \}\par
+\par
+        \cf3 private\cf1  \cf3 void\cf1  ComboBox_SelectionChanged(\cf3 object\cf1  sender, SelectionChangedEventArgs e)\par
+        \{\par
+            ComboBox comboBox = (ComboBox)sender;\par
+            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;\par
+            order = Convert.ToInt32(selectedItem.Tag.ToString());\par
+        \}\par
+    \}\cf2\fs22\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\cf1\fs19\par
+\cf0\f2\fs22\lang1033\par
+\lang9\par
+}
+ 
